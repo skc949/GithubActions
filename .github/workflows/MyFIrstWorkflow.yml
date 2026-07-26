@@ -1,0 +1,5 @@
+name: my-First-Workflow 
+
+# TO get trigger on every push in this repo in any branch
+
+on: push
