@@ -24,4 +24,4 @@ jobs:
        - name: running multiple commands 
          run: |
           echo "Currnt time is 'date'"
-          sleept 20 
+          sleep 20 
