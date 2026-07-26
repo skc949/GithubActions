@@ -16,7 +16,7 @@ jobs:
      - name: calling sleep
        run: sleep 20 
   job2:
-    name: JOB1
+    name: JOB2
     runs-on: ubuntu-latest 
     steps:
        - name: Checking host name of the runner
