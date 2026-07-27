@@ -9,5 +9,5 @@ jobs:
           echo "start: $(date +%T)"
           ( echo "task1 start $(date +%T)"; sleep 10; echo "task1 done $(date +%T)" ) &
           ( echo "task2 start $(date +%T)"; sleep 10; echo "task2 done $(date +%T)" ) &
-       
+          wait 
           echo "end: $(date +%T)"
