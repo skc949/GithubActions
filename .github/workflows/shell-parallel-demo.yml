@@ -1,5 +1,5 @@
 name: shell-parallel-demo
-on: push
+#on: push
 jobs:
   demo:
     runs-on: ubuntu-latest
