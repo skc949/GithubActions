@@ -1,51 +1,79 @@
-name: my-First-Workflow 
+name: my-First-Workflow
 
 # TO get trigger on every push in this repo in any branch
 
-on: 
- 
+on:
   push:
+
 jobs:
   job1:
-   name: JOB1
-   runs-on: ubuntu-latest 
-   steps:
-     - name: step1
-       run: |
-         pwd
-         ls -ltr
-         hostname 
-     - name: step-2-Checkout 
-       uses: actions/checkout@v5.0.0
-     - name: step-3
-       run: |
-         echo 'pwd' >> myartifact.txt 
-         mkdir artifacts
-         echo 'ls -ltr' >> artifacts/lists.txt 
-         echo 'hostname' >> artifacts/hostname.txt 
- 
-     - name: upload single file 
-       uses: actions/upload-artifact@v7
-       with: 
-         name: single-file
-         path: ./myartifact.txt 
-     - name: upload from directory
-       uses: actions/upload-artifact@v7
-       with: 
-         name: directory_artifacts
-         path: artifacts/
-     - name: upload from multiple paths
-       uses: actions/upload-artifact@v7
-       with: 
-            name: multiple_paths
-            path: |
-             ./myartifact.txt 
-             artifacts/
-     - name: upload from multiple paths with exclusions
-       uses: actions/upload-artifact@v7
-       with: 
-            name: multiple_paths_with exclusions
-            path: |
-             ./myartifact.txt 
-             artifacts/ 
-             !**/hostname.txt
+    name: JOB1
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: step1
+        run: |
+          pwd
+          ls -ltr
+          hostname
+
+      - name: step-2-Checkout
+        uses: actions/checkout@v5.0.0
+
+      - name: step-3
+        run: |
+          echo 'pwd' >> myartifact.txt
+          mkdir artifacts
+          echo 'ls -ltr' >> artifacts/lists.txt
+          echo 'hostname' >> artifacts/hostname.txt
+
+      - name: upload single file
+        uses: actions/upload-artifact@v7
+        with:
+          name: single-file
+          path: ./myartifact.txt
+
+      - name: upload from directory
+        uses: actions/upload-artifact@v7
+        with:
+          name: directory_artifacts
+          path: artifacts/
+
+      - name: upload from multiple paths
+        uses: actions/upload-artifact@v7
+        with:
+          name: multiple_paths
+          path: |
+            ./myartifact.txt
+            artifacts/
+
+      - name: upload from multiple paths with exclusions
+        uses: actions/upload-artifact@v7
+        with:
+          name: multiple_paths_with exclusions
+          path: |
+            ./myartifact.txt
+            artifacts/
+            !**/hostname.txt
+
+  job2:
+    name: JOB2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checking current directory
+        run: |
+          pwd
+          ls -ltr
+          hostname
+
+      - name: Download Single File artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: single-file
+      - name: checking current directory post download
+        run: |
+          pwd
+          ls -ltr
+          hostname
+          
