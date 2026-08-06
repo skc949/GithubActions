@@ -1,3 +1,4 @@
+
 name: my-First-Workflow
 
 # TO get trigger on every push in this repo in any branch
@@ -77,4 +78,27 @@ jobs:
           pwd
           ls -ltr
           hostname
+  job3:
+      name: JOB3
+      needs: job1
+      runs-on: ubuntu-latest
+  
+      steps:
+        - name: checking current directory
+          run: |
+            pwd
+            ls -ltr
+            hostname
+  
+        - name: Download directory 
+          uses: actions/download-artifact@v7
+          with:
+            name: directory_artifacts
+        - name: checking current directory post download
+          run: |
+            pwd
+            ls -ltr
+            hostname
+
+
           
