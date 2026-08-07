@@ -1,21 +1,20 @@
-
 name: my-First-Workflow
 
-#f TO get trigger on every push in this repo in any branch
-
+# To get trigger on every push in this repo in any branch
 on:
   push:
     branches:
+      - main
 
-       - main 
   pull_request:
-     branches:
-       - main
+    branches:
+      - main
 
 env:
   ENV_TYPE: DEV
   APP_USER: skc
-  APP_PORT: 80 
+  APP_PORT: 80
+
 jobs:
   job1:
     name: JOB1
@@ -44,8 +43,6 @@ jobs:
           name: single-file
           path: ./myartifact.txt
 
-    
-
   job2:
     name: JOB2
     needs: job1
@@ -62,9 +59,8 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: single-file
-      - name: Referring env varible background: 
+
+      - name: Referring env variable background
         run: |
-            echo "[INFO] Running deployment for $ENV_TYPE with user $APP_USER"
-            
-            echo "[INFO] Once Deployment is accessiable on port $APP_PORT"
-      
+          echo "[INFO] Running deployment for $ENV_TYPE with user $APP_USER"
+          echo "[INFO] Once Deployment is accessible on port $APP_PORT"
