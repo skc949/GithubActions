@@ -6,7 +6,7 @@ name: my-First-Workflow
 on:
   push:
     branches:
-     
+       - dev 
        - main 
   pull_request:
      branches:
@@ -66,3 +66,4 @@ jobs:
             echo "[INFO] Running deployment for $ENV_TYPE with user $APP_USER"
             
             echo "[INFO] Once Deployment is accessiable on port $APP_PORT"
+      
