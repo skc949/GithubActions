@@ -90,7 +90,7 @@ jobs:
     name: Staging Deployment
     needs: job2
     runs-on: ubuntu-latest
-
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
       name: STAGING
 
