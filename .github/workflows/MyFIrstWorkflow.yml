@@ -1,6 +1,6 @@
 name: my-First-Workflow
 
-# To get trigger on every push in this repo in any branch
+# Trigger on every push to main and every pull request targeting main
 on:
   push:
     branches:
@@ -65,19 +65,19 @@ jobs:
           echo "[INFO] Running deployment for $ENV_TYPE with user $APP_USER"
           echo "[INFO] Once Deployment is accessible on port $APP_PORT"
 
-
-      - name: Referring repo secret 
+      - name: Referring repo secret
         run: |
-           
-           echo "[INFO] Application password is ${{ secrets.APP_PAAWORD }}"
-    job3:
-       name: JOB3
-      needs: job1
-      runs-on: ubuntu-latest
-      steps:
+          echo "[INFO] Application password is ${{ secrets.APP_PAAWORD }}"
+
+  job3:
+    name: JOB3
+    needs: job1
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Referring Context or in-built variables
         run: |
-         echo "[INFO] Triggered by {{ github.event_name }}"
-         echo "[INFO] new changes added by {{ github.actor }}" in {{ github.ref_name }} 
-         echo "[INFO] current step is running on {{ runner.os }}" 
-          echo "[INFO]current job id is {{ job.check_run_id }}" 
+          echo "[INFO] Triggered by ${{ github.event_name }}"
+          echo "[INFO] new changes added by ${{ github.actor }} in ${{ github.ref_name }}"
+          echo "[INFO] current step is running on ${{ runner.os }}"
+          echo "[INFO] current job id is ${{ github.job }}"
