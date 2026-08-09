@@ -1,59 +1,69 @@
-
 name: my-First-Workflow
 
-# TO get trigger on every push in this repo in any branch
+# To get triggered on push and pull request to main
 
 on:
   push:
     branches:
       - main
-  pull_request: 
+  pull_request:
     branches:
       - main
+
 jobs:
+
   UNIT-TESTS:
     name: Running Unit tests
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v6.1.0
+
       - name: Set up Python
         uses: actions/setup-python@v7.0.0
         with:
-           python-version: '3.10'
+          python-version: '3.10'
+
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
       - name: Run unit tests
         run: |
           mkdir reports/
-          pytest --junitxml=reports/unit-test-results.xml --cov=. --cov-report=xml --cov-report=term-missing -v 
+          pytest --junitxml=reports/unit-test-results.xml --cov=. --cov-report=xml --cov-report=term-missing -v
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
         with:
           name: single-file
           path: reports/
+
   codeql:
     name: codeQL_Security_Scan
     runs-on: ubuntu-latest
+
     permissions:
-       actions: read
-       conents: read
-       security-events: write # Required to upload the analysis results 
-       strategy:
-          matrix:
-             language:  ['Python']
-       steps:
-          - name: Checkout code
-            uses: actions/checkout@v6.1.0
-         
-          - name: Intialize Code QL
-            uses: github/codeql-action/init@v2 
-            with: 
-               languages: $ {{ matrix.language }}
-          - name: Perform codeQL analysis 
-            uses: github/codeql-action/analyze@v3
-            with: 
-              category: "security"
-       
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      matrix:
+        language: ['python']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.1.0
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "security"
