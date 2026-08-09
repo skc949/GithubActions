@@ -1,5 +1,5 @@
 
-name: my-First-Workflow
+name: EnvValidation
 
 # Trigger on every push to main and every pull request targeting main
 on:
