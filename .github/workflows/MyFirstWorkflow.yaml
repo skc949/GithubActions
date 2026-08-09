@@ -5,133 +5,25 @@ name: my-First-Workflow
 
 on:
   push:
-
+    branches:
+      - main
+  pull_request: 
+    branches:
+      - main
 jobs:
-  job1:
-    name: JOB1
+  UNIT-TESTS:
+    name: Running Unit tests
     runs-on: ubuntu-latest
-
     steps:
-      - name: step1
+      - name: Checkout code
+        uses: actions/checkout@v6.1.0
+      - name: Set up Python
+        uses: actions/setup-python@v7.0.0
+        with:
+           python-version: '3.10'
+      - name: Install Dependencies
         run: |
-          pwd
-          ls -ltr
-          hostname
-
-      - name: step-2-Checkout
-        uses: actions/checkout@v5.0.0
-
-      - name: step-3
-        run: |
-          echo 'pwd' >> myartifact.txt
-          mkdir artifacts
-          echo 'ls -ltr' >> artifacts/lists.txt
-          echo 'hostname' >> artifacts/hostname.txt
-
-      - name: upload single file
-        uses: actions/upload-artifact@v7
-        with:
-          name: single-file
-          path: ./myartifact.txt
-
-      - name: upload from directory
-        uses: actions/upload-artifact@v7
-        with:
-          name: directory_artifacts
-          path: artifacts/
-
-      - name: upload from multiple paths
-        uses: actions/upload-artifact@v7
-        with:
-          name: multiple_paths
-          path: |
-            ./myartifact.txt
-            artifacts/
-
-      - name: upload from multiple paths with exclusions
-        uses: actions/upload-artifact@v7
-        with:
-          name: multiple_paths_with exclusions
-          path: |
-            ./myartifact.txt
-            artifacts/
-            !**/hostname.txt
-
-  job2:
-    name: JOB2
-    needs: job1
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: checking current directory
-        run: |
-          pwd
-          ls -ltr
-          hostname
-
-      - name: Download Single File artifact
-        uses: actions/download-artifact@v7
-        with:
-          name: single-file
-      - name: checking current directory post download
-        run: |
-          pwd
-          ls -ltr
-          hostname
-  job3:
-      name: JOB3
-      needs: job1
-      runs-on: ubuntu-latest
-  
-      steps:
-        - name: checking current directory
-          run: |
-            pwd
-            ls -ltr
-            hostname
-  
-        - name: Download directory 
-          uses: actions/download-artifact@v7
-          with:
-            name: directory_artifacts
-        - name: checking current directory post download
-          run: |
-            pwd
-            ls -ltr
-            hostname
-  job4:
-        name: JOB4
-        needs: job1
-        runs-on: ubuntu-latest
-    
-        steps:
-          - name: Creating custom folder for download 
-            run: |
-              mkdir -p single_File
-              mkdir -p download_directory 
-          - name: checking current directory
-            run: |
-              pwd
-              ls -ltr
-              hostname
-    
-          - name: Download single file artifact 
-            uses: actions/download-artifact@v7
-            with:
-              name: single-file
-              path: single_File
-          
-          - name: Download directory 
-            uses: actions/download-artifact@v7
-            with:
-              name: directory_artifacts
-              path: download_directory 
-          - name: checking current directory post download
-            run: |
-              pwd
-              echo "CHECKING SINGLE FILE DIRECTORY"
-              ls -ltr single_File
-              echo "Checking Directory Artifact"
-              ls -ltr download_directory 
-              hostname
-          
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt 
+      - name: Run unit tests
+        run: pytest -v 
