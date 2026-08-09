@@ -34,3 +34,26 @@ jobs:
         with:
           name: single-file
           path: reports/
+  codeql:
+    name: codeQL_Security_Scan
+    runs-on: ubuntu-latest
+    permissions:
+       actions: read
+       conents: read
+       security-events: write # Required to upload the analysis results 
+       strategy:
+          matrix:
+             language:  ['Python']
+       steps:
+          - name: Checkout code
+            uses: actions/checkout@v6.1.0
+         
+          - name: Intialize Code QL
+            uses: github/codeql-action/init@v2 
+            with: 
+               languages: $ {{ matrix.language }}
+          - name: Perform codeQL analysis 
+            uses: github/codeql-action/analyze@v3
+            with: 
+              category: "security"
+       
