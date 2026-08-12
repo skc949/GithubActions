@@ -3,6 +3,7 @@ name: EnvValidation
 
 # Trigger on every push to main and every pull request targeting main
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
