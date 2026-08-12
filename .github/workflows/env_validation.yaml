@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - main
+      - dev
 
   pull_request:
     branches:
@@ -91,8 +92,7 @@ jobs:
     name: Staging Deployment
     needs: job2
     runs-on: ubuntu-latest
-    #if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    if: github.head_ref == 'dev' 
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
     environment:
       name: STAGING
 
@@ -110,7 +110,7 @@ jobs:
     name: PRODUCTION Deployment
     needs: staging
     runs-on: ubuntu-latest
-    if: github.head_ref == 'refs/heads/main' 
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
       name: PRODUCTION
 
