@@ -67,3 +67,39 @@ jobs:
         uses: github/codeql-action/analyze@v4
         with:
           category: "security"
+    
+  build:
+    name: Build  Image
+    runs-on: ubuntu-latest
+    needs: [codeql]
+    if: success()
+    outputs:
+       image-tags: ${{ steps.vars.outputs.IMAGE_TAGS }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.1.0
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-acton@v3.0.0 
+      - name: Generate Image tag 
+        id: vars
+        run: 
+            IMAGE_TAGS="{{ github.run_id }}-${GITHUB_SHA::7}"
+            echo "IMAGE_TAGS=$IMAGE_TAGS" >> $GITHUB_OUTPUT
+         
+
+      - name: Build Docker Image (no push)
+        uses: docker/build-push-action@v5.0.0
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: python-app:${{ steps.vars.outputs.IMAGE_TAGS }}
+      - name: Save Docker Image as artifact 
+        run: docker save python-app:${{ steps.vars.outputs.IMAGE_TAGS }} -o python-app.tar
+
+      - name: Upload Docker Image Artifact
+        uses: actions/upload-artifact@v5.0.0
+        with:
+           name: python-app-image
+           path: python-app.tar
