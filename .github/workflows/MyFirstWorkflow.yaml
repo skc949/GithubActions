@@ -79,8 +79,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6.1.0
+
       - name: Setup Docker buildx
-        uses: docker/setup-buildx-acton@v3.0.0 
+        uses: docker/setup-buildx-action@v3
       - name: Generate Image tag 
         id: vars
         run: 
