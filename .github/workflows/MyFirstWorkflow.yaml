@@ -1,11 +1,11 @@
 name: my-First-Workflow
 
-# To get triggered on push and pull request to main
-
+# Trigger workflow on push and pull request to main
 on:
   push:
     branches:
       - main
+
   pull_request:
     branches:
       - main
@@ -17,11 +17,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout code
-        uses: actions/checkout@v6.1.0
+        uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: actions/setup-python@v7.0.0
+        uses: actions/setup-python@v7
         with:
           python-version: '3.10'
 
@@ -32,8 +33,12 @@ jobs:
 
       - name: Run unit tests
         run: |
-          mkdir reports/
-          pytest --junitxml=reports/unit-test-results.xml --cov=. --cov-report=xml --cov-report=term-missing -v
+          mkdir -p reports/
+          pytest --junitxml=reports/unit-test-results.xml \
+            --cov=. \
+            --cov-report=xml \
+            --cov-report=term-missing \
+            -v
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
@@ -41,8 +46,9 @@ jobs:
           name: single-file
           path: reports/
 
-  codeql:
-    name: codeQL_Security_Scan
+
+  CODEQL:
+    name: CodeQL Security Scan
     runs-on: ubuntu-latest
 
     permissions:
@@ -52,11 +58,13 @@ jobs:
 
     strategy:
       matrix:
-        language: ['python']
+        language:
+          - python
 
     steps:
+
       - name: Checkout code
-        uses: actions/checkout@v6.1.0
+        uses: actions/checkout@v6
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
