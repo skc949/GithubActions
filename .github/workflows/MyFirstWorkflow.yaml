@@ -132,17 +132,13 @@ jobs:
           username: {{ secrets.DOCKERHUB_USERNAME }}
           password: {{ secrets.DOCKERHUB_TOKEN }}
       - name: Generate Image tag
-        id: vars
         run: |
-          IMAGE_TAGS="${{ github.run_id }}-${GITHUB_SHA::7}"
-          echo "IMAGE_TAGS=${IMAGE_TAGS}" >> "$GITHUB_OUTPUT"
-          echo "Generated image tag: ${IMAGE_TAGS}"
+          IMAGE_TAG="${{ needs.build.outputs.image-tags }}
+          docker image tag python-app-image: IMAGE_TAG {{ secrets.DOCKERHU_USERNAME }}/python-app-image:$IMAGE_TAG
              
-      - name: Tage the image
-        run: docker save python-app:${{ steps.vars.outputs.IMAGE_TAGS }} -o python-app.tar
 
       - name: Push the image
         uses: actions/upload-artifact@v5.0.0
-        with:
-           name: python-app-image
-           path: python-app.tar   
+        run: |
+         IMAGE_TAG="${{ needs.build.outputs.image-tags }}
+         docker image push {{ secrets.DOCKERHU_USERNAME }}/python-app-image:$IMAGE_TAG  
