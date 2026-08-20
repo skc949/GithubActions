@@ -4,14 +4,7 @@ name: EV
 # fsdfdTrigger on every push to main and every pull request targeting main
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-      - dev
-
-  pull_request:
-    branches:
-      - main
+ 
 
 env:
   ENV_TYPE: DEV
