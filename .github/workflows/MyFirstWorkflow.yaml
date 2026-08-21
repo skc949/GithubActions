@@ -98,6 +98,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: false
+          load: true
           tags: python-app:${{ steps.vars.outputs.IMAGE_TAGS }}
 
       - name: Save Docker Image as artifact
