@@ -6,7 +6,7 @@ on:
 jobs:
     demo-1:
         name: Dem_Job1
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-latest # pick github-hosted runner with label 'ubuntu-latest'
         steps:
         - name: Display System Information 
           run: |
@@ -17,7 +17,7 @@ jobs:
            echo "Runner OS: ${{ runner.os }}"
     demo-2:
         name: Dem_Job2
-        runs-on: self-hosted 
+        runs-on: self-hosted # pick up self hosted runner with label 'self hosted'
         steps:
         - name: Display System Information 
           run: |

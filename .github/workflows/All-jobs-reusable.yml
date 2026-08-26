@@ -1,14 +1,12 @@
-name: my-First-Workflow
-
-To get triggered on push and pull request to main
+name: reusable-all-jobs
 
 on:
-  push:
-    branches:
-      - dev
-  pull_request:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      python-version:
+        required: false
+        type: string
+        default: '3.10'
 
 jobs:
 
