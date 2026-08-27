@@ -2,7 +2,9 @@ name: call-reusable-from-another-repo
 
 on:
   workflow_dispatch:
-
+  push:
+    branches:
+      - dev
 jobs:
   ci-pipeline-job:
     uses: skc949/reusablewf/.github/workflows/blank.yml@main
