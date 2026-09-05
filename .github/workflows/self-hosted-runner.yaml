@@ -15,7 +15,7 @@ jobs:
            lsb_release -a || cat  /etc/os-release 
            echo "Runner Name : ${{ runner.name}}"
            echo "Runner OS: ${{ runner.os }}"
-           sleep 60
+           sleep 30
     demo-2:
         name: Dem_Job2
         runs-on: arc-demo # pick up self hosted runner with label 'self hosted'
@@ -27,4 +27,4 @@ jobs:
            lsb_release -a || cat  /etc/os-release 
            echo "Runner Name : ${{ runner.name}}"
            echo "Runner OS: ${{ runner.os }}"
-           sleep 60
+           sleep 30
