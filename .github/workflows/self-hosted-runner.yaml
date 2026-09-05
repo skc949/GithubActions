@@ -6,7 +6,7 @@ on:
 jobs:
     demo-1:
         name: Dem_Job1
-        runs-on: arc-demo 
+        runs-on: gihub-actions-scaleset-demo
         steps:
         - name: Display System Information 
           run: |
@@ -15,10 +15,10 @@ jobs:
            lsb_release -a || cat  /etc/os-release 
            echo "Runner Name : ${{ runner.name}}"
            echo "Runner OS: ${{ runner.os }}"
-           sleep 15
+           sleep 90
     demo-2:
         name: Dem_Job2
-        runs-on: arc-demo # pick up self hosted runner with label 'self hosted'
+        runs-on: gihub-actions-scaleset-demo 
         steps:
         - name: Display System Information 
           run: |
@@ -27,4 +27,4 @@ jobs:
            lsb_release -a || cat  /etc/os-release 
            echo "Runner Name : ${{ runner.name}}"
            echo "Runner OS: ${{ runner.os }}"
-           sleep 15
+           sleep 90
