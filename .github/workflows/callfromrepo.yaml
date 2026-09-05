@@ -1,20 +1,20 @@
-name: call-all-jobs
+name: call-reusable-from-another-repo
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - dev
-  pull_request:
-    branches:
-      - main
+      - dev #
+
 permissions:
   contents: read
   actions: read
   security-events: write
   packages: write
+
 jobs:
   ci-pipeline-job:
-    uses: ./.github/workflows/All-jobs-reusable.yml
+    uses: skc949/reusablewf/.github/workflows/blank.yml@main
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

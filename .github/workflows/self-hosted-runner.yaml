@@ -1,0 +1,30 @@
+name: self-hosted-runner
+on:
+ push:
+    branches:
+      - dev
+jobs:
+    demo-1:
+        name: Dem_Job1
+        runs-on: gihub-actions-scaleset-demo
+        steps:
+        - name: Display System Information 
+          run: |
+           echo "host Name : $(hostname)"
+           echo "OS version:"
+           lsb_release -a || cat  /etc/os-release 
+           echo "Runner Name : ${{ runner.name}}"
+           echo "Runner OS: ${{ runner.os }}"
+           sleep 90
+    demo-2:
+        name: Dem_Job2
+        runs-on: gihub-actions-scaleset-demo 
+        steps:
+        - name: Display System Information 
+          run: |
+           echo "host Name : $(hostname)"
+           echo "OS version:"
+           lsb_release -a || cat  /etc/os-release 
+           echo "Runner Name : ${{ runner.name}}"
+           echo "Runner OS: ${{ runner.os }}"
+           sleep 90
