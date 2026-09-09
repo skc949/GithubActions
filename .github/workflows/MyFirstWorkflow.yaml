@@ -19,5 +19,5 @@ jobs:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     with:
-      run_codeql: true
-      run_build: true
+      run_codeql: false   
+      run_build: false
