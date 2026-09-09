@@ -7,11 +7,20 @@ on:
         required: false
         type: string
         default: '3.10'
+      run_codeql:
+        required: false
+        type: boolean
+        default: true
+      run_build:
+        required: false
+        type: boolean
+        default: true
     secrets:
       DOCKERHUB_USERNAME:
         required: true
       DOCKERHUB_TOKEN:
         required: true
+   
 
 jobs:
   UNIT-TESTS:
@@ -45,6 +54,7 @@ jobs:
 
   codeql:
     name: codeQL_Security_Scan
+    if: ${{ inputs.run_codeql }}
     runs-on: ubuntu-latest
 
     permissions:
@@ -72,9 +82,10 @@ jobs:
 
   build:
     name: Build Image
+    if: ${{ inputs.run_build }}
     runs-on: ubuntu-latest
     needs: [codeql]
-    if: success()
+    
 
     outputs:
       image-tags: ${{ steps.vars.outputs.IMAGE_TAGS }}
