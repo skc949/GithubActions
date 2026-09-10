@@ -15,6 +15,10 @@ on:
         required: false
         type: boolean
         default: true
+      run_dummy:
+        required: false
+        type: boolean
+        default: false
     secrets:
       DOCKERHUB_USERNAME:
         required: true
@@ -192,5 +196,12 @@ jobs:
           IMAGE_TAG="${{ needs.build.outputs.image-tags }}"
           docker image push \
             ghcr.io/${{ github.repository_owner }}/python-app:$IMAGE_TAG
-
-
+  
+  
+  dummy-job:
+    name: Dummy Job
+    if: ${{ inputs.run_dummy }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run dummy step
+        run: echo "The dummy job is running"
