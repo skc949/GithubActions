@@ -19,6 +19,14 @@ on:
         required: false
         type: boolean
         default: false
+      dummy_input_a:
+        required: false
+        type: string
+        default: 'valueA'
+      dummy_input_b:
+        required: false
+        type: string
+        default: 'valueB'
     secrets:
       DOCKERHUB_USERNAME:
         required: true
@@ -205,3 +213,12 @@ jobs:
     steps:
       - name: Run dummy step
         run: echo "The dummy job is running"
+  dummy-job-1:
+      name: Dummy Job
+      if: ${{ inputs.run_dummy }}
+      runs-on: ubuntu-latest
+      steps:
+      - name: Print multiple inputs
+        run: |
+          echo "Input A: ${{ inputs.dummy_input_a }}"
+          echo "Input B: ${{ inputs.dummy_input_b }}"
