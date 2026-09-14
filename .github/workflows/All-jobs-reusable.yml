@@ -221,4 +221,7 @@ jobs:
       - name: Print multiple inputs
         run: |
           echo "Input A: ${{ inputs.dummy_input_a }}"
-          echo "Input B: ${{ inputs.dummy_input_b }}"
+          echo "Input B: ${{ inputs.dummy_input_b }}" 
+       
+      - name: Print shared input
+        run: echo "Python version used elsewhere: ${{ inputs.python-version }}"
