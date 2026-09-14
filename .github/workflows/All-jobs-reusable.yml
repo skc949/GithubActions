@@ -214,7 +214,7 @@ jobs:
       - name: Run dummy step
         run: echo "The dummy job is running"
   dummy-job-1:
-      name: Dummy Job
+      name: Dummy Job1
       if: ${{ inputs.run_dummy }}
       runs-on: ubuntu-latest
       steps:
