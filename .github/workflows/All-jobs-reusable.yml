@@ -100,7 +100,8 @@ jobs:
         uses: github/codeql-action/analyze@v4
         with:
           category: security
-
+      - name: Print codeql inputs
+        run: echo "run_codeql=${{ inputs.run_codeql }}, python-version=${{ inputs.python-version }}"
 
   build:
     name: Build Image
@@ -234,7 +235,8 @@ jobs:
     steps:
       - name: Run dummy step
         run: echo "The dummy job is running"
-
+      - name: Print dummy inputs
+        run: echo "run_build=${{ inputs.run_build }}, run_dummy=${{ inputs.run_dummy }}"
 # workflows 
   dummy-job-1:
     name: Dummy Job1
