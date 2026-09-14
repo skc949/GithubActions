@@ -22,3 +22,5 @@ jobs:
       run_codeql: true  
       run_build: true
       run_dummy: false 
+      dummy_input_a: 'valueA'
+      dummy_input_b: 'valueB'
